@@ -7,7 +7,6 @@ import service.HallServiceImpl;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Main {
@@ -17,6 +16,7 @@ public class Main {
         System.out.println("Hello world!");
         DatesOfReservations datesOfReservations = new DatesOfReservations();
         List<HallDB> hallDBList = new ArrayList<>();
+        List<Reservation> reservationList = new ArrayList<>();
         HallDB hallDB1 = new HallDB(1, datesOfReservations.date01032023, false, true,true);
         hallDBList.add(hallDB1);
         CheckDate checkDate = new CheckDate();
@@ -29,9 +29,10 @@ public class Main {
             hallService.showHall(hallService.getCheckedHall());
             String choiceTable = hallService.readCommand("Select free table and \n" +
                     "enter number of table for your reservation ");
-            //hallService.madeNewReservation(checkDate.getCheckDate(), choiceTable);
-            Reservation test = hallService.madeNewReservation(checkDate.getCheckDate(), choiceTable);
-            System.out.println(test);
+            Reservation reservation = hallService.madeNewReservation(checkDate.getCheckDate(), choiceTable);
+            hallService.saveReservation(reservationList, reservation);
+            System.out.println(reservationList);
+            hallService.changeStatusOfTable(hallDB1,reservation);  //write realiz method
         } else {
             hallService.notification2();
         }

@@ -1,8 +1,8 @@
 package dao;
 
 import db.HallDB;
-import entity.Hall;
 import entity.Reservation;
+import entity.Table;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.regex.Pattern;
 
 public class HallDAOImpl implements HallDAO {
 
@@ -92,5 +91,16 @@ public class HallDAOImpl implements HallDAO {
         reservation.setDate(date);
         reservation.setNumberOfTable(Integer.parseInt(command));   //Exception
         return reservation;
+    }
+
+    @Override
+    public List<Reservation> saveReservation(List<Reservation> list, Reservation reservation) {
+        list.add(reservation);
+        return list;
+    }
+
+    @Override
+    public Table changeStatusOfTable(HallDB hallDB, Reservation reservation) {
+        return null;
     }
 }

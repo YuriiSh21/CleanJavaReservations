@@ -101,14 +101,14 @@ public class Reservation {
     @Override
     public String toString() {
         return "Reservation{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", numberOfPersons=" + numberOfPersons +
-                ", remark='" + remark + '\'' +
-                ", date=" + date +
-                ", numberOfTable=" + numberOfTable +
+                " \n id = " + id +
+                ", \n Name = '" + name + '\'' +
+                ", \n Surname = '" + surname + '\'' +
+                ", \n Phone number = " + phoneNumber +
+                ", \n Number of Persons = " + numberOfPersons +
+                ", \n Remark = '" + remark + '\'' +
+                ", \n Date = " + date +
+                ",\n Number of table = " + numberOfTable +
                 '}';
     }
 }

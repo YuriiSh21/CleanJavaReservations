@@ -3,8 +3,8 @@ package service;
 import dao.HallDAO;
 import dao.HallDAOImpl;
 import db.HallDB;
-import entity.Hall;
 import entity.Reservation;
+import entity.Table;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -52,6 +52,16 @@ public class HallServiceImpl implements HallService {
     @Override
     public Reservation madeNewReservation(Date date, String command) {
         return hallDAO.madeNewReservation(date, command);
+    }
+
+    @Override
+    public List<Reservation> saveReservation(List<Reservation> list, Reservation reservation) {
+        return hallDAO.saveReservation(list, reservation);
+    }
+
+    @Override
+    public Table changeStatusOfTable(HallDB hallDB, Reservation reservation) {
+        return hallDAO.changeStatusOfTable(hallDB, reservation);
     }
 
 }

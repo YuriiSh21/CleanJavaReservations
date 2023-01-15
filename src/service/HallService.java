@@ -1,8 +1,8 @@
 package service;
 
 import db.HallDB;
-import entity.Hall;
 import entity.Reservation;
+import entity.Table;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -17,4 +17,6 @@ public interface HallService {
     public String readCommand(String s);
     public Date checkDate() throws ParseException;
     public Reservation madeNewReservation(Date date, String command);
+    public List<Reservation> saveReservation(List<Reservation> list, Reservation reservation);
+    public Table changeStatusOfTable(HallDB hallDB, Reservation reservation);
 }
