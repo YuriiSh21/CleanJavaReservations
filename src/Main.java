@@ -1,14 +1,14 @@
 import db.HallDB;
+import entity.CheckDate;
 import entity.DatesOfReservations;
+import entity.Reservation;
 import service.HallService;
 import service.HallServiceImpl;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 public class Main {
     static HallService hallService = new HallServiceImpl();
@@ -19,24 +19,21 @@ public class Main {
         List<HallDB> hallDBList = new ArrayList<>();
         HallDB hallDB1 = new HallDB(1, datesOfReservations.date01032023, false, true,true);
         hallDBList.add(hallDB1);
+        CheckDate checkDate = new CheckDate();
+        checkDate.setCheckDate(hallService.checkDate());
 
-        boolean hallExist = hallService.checkStatusOfTablesInHall(checkDate(), hallDBList);
+        
+        boolean hallExist = hallService
+                .checkStatusOfTablesInHall(checkDate.getCheckDate(), hallDBList);
         if (hallExist) {
-            System.out.println(hallService.getCheckedHall());
-            hallService.notification1();
+            hallService.showHall(hallService.getCheckedHall());
+            String choiceTable = hallService.readCommand("Select free table and \n" +
+                    "enter number of table for your reservation ");
+            //hallService.madeNewReservation(checkDate.getCheckDate(), choiceTable);
+            Reservation test = hallService.madeNewReservation(checkDate.getCheckDate(), choiceTable);
+            System.out.println(test);
         } else {
             hallService.notification2();
         }
-
-    }
-
-    public static Date checkDate() throws ParseException {
-        Scanner in = new Scanner(System.in);
-        System.out.print("Input a date: ");
-        String date = in.nextLine();
-        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        Date dateForCheck = s.parse(date);
-        in.close();
-        return dateForCheck;
     }
 }

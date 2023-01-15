@@ -4,7 +4,9 @@ import dao.HallDAO;
 import dao.HallDAOImpl;
 import db.HallDB;
 import entity.Hall;
+import entity.Reservation;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +31,27 @@ public class HallServiceImpl implements HallService {
 
     @Override
     public void notification2() {
-
+        hallDAO.notification2();
     }
+
+    @Override
+    public void showHall(HallDB hallDB) {
+        hallDAO.showHall(hallDB);
+    }
+
+    @Override
+    public String readCommand(String s) {
+        return hallDAO.readCommand(s);
+    }
+
+    @Override
+    public Date checkDate() throws ParseException {
+        return hallDAO.checkDate();
+    }
+
+    @Override
+    public Reservation madeNewReservation(Date date, String command) {
+        return hallDAO.madeNewReservation(date, command);
+    }
+
 }

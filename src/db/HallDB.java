@@ -23,10 +23,9 @@ public class HallDB {
         return "HallDB{" +
                 "id=" + id +
                 ", date=" + date +
-                ", status1Table=" + status1Table +
-                ", status2Table=" + status2Table +
-                ", status3Table=" + status3Table +
-                '}';
+                ", \n Table #1 is free = " + status1Table +
+                ", \n Table #2 is free = " + status2Table +
+                ", \n Table #3 is free = " + status3Table;
     }
 
     public int getId() {

@@ -1,6 +1,10 @@
 package entity;
 
+import com.sun.deploy.security.ValidationState;
+
+import javax.annotation.Generated;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Reservation {
     private int id;
@@ -9,10 +13,10 @@ public class Reservation {
     private int phoneNumber;
     private int numberOfPersons;
     private String remark;
-
     private Date date;
+    private int numberOfTable;
 
-    public Reservation(int id, String name, String surname, int phoneNumber, int numberOfPersons, String remark, Date date) {
+    public Reservation(int id, String name, String surname, int phoneNumber, int numberOfPersons, String remark, Date date, int numberOfTable) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -20,6 +24,7 @@ public class Reservation {
         this.numberOfPersons = numberOfPersons;
         this.remark = remark;
         this.date = date;
+        this.numberOfTable = numberOfTable;
     }
 
     public Reservation() {
@@ -83,5 +88,27 @@ public class Reservation {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public int getNumberOfTable() {
+        return numberOfTable;
+    }
+
+    public void setNumberOfTable(int numberOfTable) {
+        this.numberOfTable = numberOfTable;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", numberOfPersons=" + numberOfPersons +
+                ", remark='" + remark + '\'' +
+                ", date=" + date +
+                ", numberOfTable=" + numberOfTable +
+                '}';
     }
 }

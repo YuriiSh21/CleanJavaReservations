@@ -5,6 +5,9 @@ import java.util.Date;
 public class CheckDate {
     private Date checkDate;
 
+    public CheckDate() {
+    }
+
     public CheckDate(Date checkDate) {
         this.checkDate = checkDate;
     }
