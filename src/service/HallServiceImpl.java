@@ -3,6 +3,7 @@ package service;
 import dao.HallDAO;
 import dao.HallDAOImpl;
 import db.HallDB;
+import entity.Hall;
 import entity.Reservation;
 import entity.Table;
 
@@ -15,12 +16,12 @@ public class HallServiceImpl implements HallService {
     private HallDAO hallDAO = new HallDAOImpl();
 
     @Override
-    public boolean checkStatusOfTablesInHall(Date date, List<HallDB> list) {
+    public boolean checkStatusOfTablesInHall(Date date, List<Hall> list) {
         return hallDAO.checkStatusOfTablesInHall(date, list);
     }
 
     @Override
-    public HallDB getCheckedHall() {    //
+    public Hall getCheckedHall() {    //
         return hallDAO.getCheckedHall();
     }
 
@@ -35,8 +36,8 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public void showHall(HallDB hallDB) {
-        hallDAO.showHall(hallDB);
+    public void showHall(Hall hall) {
+        hallDAO.showHall(hall);
     }
 
     @Override
@@ -60,8 +61,8 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public Table changeStatusOfTable(HallDB hallDB, Reservation reservation) {
-        return hallDAO.changeStatusOfTable(hallDB, reservation);
+    public void changeStatusOfTable(Hall hall, Reservation reservation) {
+        hallDAO.changeStatusOfTable(hall, reservation);
     }
 
 }

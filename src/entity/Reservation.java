@@ -1,10 +1,6 @@
 package entity;
 
-import com.sun.deploy.security.ValidationState;
-
-import javax.annotation.Generated;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Reservation {
     private int id;

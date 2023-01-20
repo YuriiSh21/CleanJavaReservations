@@ -1,6 +1,7 @@
 package dao;
 
 import db.HallDB;
+import entity.Hall;
 import entity.Reservation;
 import entity.Table;
 
@@ -13,19 +14,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class HallDAOImpl implements HallDAO {
 
-    public static HallDB checkedHall;
+    public static Hall checkedHall;
     private static final AtomicInteger ID_GENERATOR = new AtomicInteger(1);
 
-    public  HallDB getCheckedHall() {
+    public Hall getCheckedHall() {
         return checkedHall;
     }
 
     @Override
-    public boolean checkStatusOfTablesInHall(Date date, List<HallDB> list) {
+    public boolean checkStatusOfTablesInHall(Date date, List<Hall> list) {
 
-        for (HallDB hallDB : list) {
-            if (date.equals(hallDB.getDate())) {
-                checkedHall = hallDB;
+        for (Hall hall : list) {
+            if (date.equals(hall.getDate())) {
+                checkedHall = hall;
                 System.out.println(true); //for visible valid
                 return true;
             }
@@ -45,8 +46,8 @@ public class HallDAOImpl implements HallDAO {
     }
 
     @Override
-    public void showHall(HallDB hallDB) {
-        System.out.println(hallDB);
+    public void showHall(Hall hall) {
+        System.out.println(hall);
     }
 
     @Override
@@ -100,7 +101,16 @@ public class HallDAOImpl implements HallDAO {
     }
 
     @Override
-    public Table changeStatusOfTable(HallDB hallDB, Reservation reservation) {
-        return null;
+    public void changeStatusOfTable(Hall hall, Reservation reservation) {
+        switch (reservation.getNumberOfTable()) {
+            case 1:
+                hall.getTable_1().setTableStatus(false);
+                break;
+            case 2:
+                hall.getTable_2().setTableStatus(false);
+                break;
+            case 3:
+                hall.getTable_3().setTableStatus(false);
+        }
     }
 }

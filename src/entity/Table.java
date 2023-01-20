@@ -1,22 +1,22 @@
 package entity;
 
 public class Table {
-    private String nameOfTable;
+    private int numberOfTable;
     private boolean tableStatus;
     private int places;
 
-    public Table(String nameOfTable, boolean tableStatus, int places) {
-        this.nameOfTable = nameOfTable;
+    public Table(int numberOfTable, boolean tableStatus, int places) {
+        this.numberOfTable = numberOfTable;
         this.tableStatus = tableStatus;
         this.places = places;
     }
 
-    public String getNameOfTable() {
-        return nameOfTable;
+    public int getNumberOfTable() {
+        return numberOfTable;
     }
 
-    public void setNameOfTable(String nameOfTable) {
-        this.nameOfTable = nameOfTable;
+    public void setNumberOfTable(int numberOfTable) {
+        this.numberOfTable = numberOfTable;
     }
 
     public boolean isTableStatus() {

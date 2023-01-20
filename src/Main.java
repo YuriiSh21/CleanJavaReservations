@@ -1,7 +1,5 @@
 import db.HallDB;
-import entity.CheckDate;
-import entity.DatesOfReservations;
-import entity.Reservation;
+import entity.*;
 import service.HallService;
 import service.HallServiceImpl;
 
@@ -15,16 +13,19 @@ public class Main {
     public static void main(String[] args) throws ParseException {
         System.out.println("Hello world!");
         DatesOfReservations datesOfReservations = new DatesOfReservations();
-        List<HallDB> hallDBList = new ArrayList<>();
+        List<Hall> hallList = new ArrayList<>();
         List<Reservation> reservationList = new ArrayList<>();
-        HallDB hallDB1 = new HallDB(1, datesOfReservations.date01032023, false, true,true);
-        hallDBList.add(hallDB1);
+        Table table1 = new Table(1,false,4);
+        Table table2 = new Table(2,true,4);
+        Table table3 = new Table(3,true,4);
+        Hall hall = new Hall(datesOfReservations.date01032023,table1, table2, table3 );
+        hallList.add(hall);
         CheckDate checkDate = new CheckDate();
         checkDate.setCheckDate(hallService.checkDate());
 
         
         boolean hallExist = hallService
-                .checkStatusOfTablesInHall(checkDate.getCheckDate(), hallDBList);
+                .checkStatusOfTablesInHall(checkDate.getCheckDate(), hallList);
         if (hallExist) {
             hallService.showHall(hallService.getCheckedHall());
             String choiceTable = hallService.readCommand("Select free table and \n" +
@@ -32,7 +33,8 @@ public class Main {
             Reservation reservation = hallService.madeNewReservation(checkDate.getCheckDate(), choiceTable);
             hallService.saveReservation(reservationList, reservation);
             System.out.println(reservationList);
-            hallService.changeStatusOfTable(hallDB1,reservation);  //write realiz method
+            hallService.changeStatusOfTable(hall,reservation);
+            hallService.showHall(hallService.getCheckedHall());
         } else {
             hallService.notification2();
         }
