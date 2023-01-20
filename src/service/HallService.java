@@ -20,4 +20,5 @@ public interface HallService {
     public Reservation madeNewReservation(Date date, String command);
     public List<Reservation> saveReservation(List<Reservation> list, Reservation reservation);
     public void changeStatusOfTable(Hall hall, Reservation reservation);
+    public boolean isTableFree(String command, Hall hall);
 }

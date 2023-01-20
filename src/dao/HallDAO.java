@@ -20,4 +20,6 @@ public interface HallDAO {
     public Reservation madeNewReservation(Date date, String command);
     public List<Reservation> saveReservation(List<Reservation> list, Reservation reservation);
     public void changeStatusOfTable(Hall hall, Reservation reservation);
+
+    boolean isTableFree(String command, Hall hall);
 }

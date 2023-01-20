@@ -65,4 +65,9 @@ public class HallServiceImpl implements HallService {
         hallDAO.changeStatusOfTable(hall, reservation);
     }
 
+    @Override
+    public boolean isTableFree(String command, Hall hall) {
+        return hallDAO.isTableFree(command, hall);
+    }
+
 }

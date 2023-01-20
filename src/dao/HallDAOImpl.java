@@ -55,7 +55,7 @@ public class HallDAOImpl implements HallDAO {
         Scanner sc = new Scanner(System.in);
         String command = "No command";
         System.out.print(s);
-            command = sc.nextLine();
+        command = sc.nextLine();
         //sc.close();
         return command;
     }
@@ -73,7 +73,6 @@ public class HallDAOImpl implements HallDAO {
 
     @Override
     public Reservation madeNewReservation(Date date, String command) {
-       // Reservation reservation = new Reservation(0,null, "null",0,0,"null", date,0);
         Scanner sc = new Scanner(System.in);
         Reservation reservation = new Reservation();
         reservation.setId(ID_GENERATOR.getAndIncrement());
@@ -111,6 +110,38 @@ public class HallDAOImpl implements HallDAO {
                 break;
             case 3:
                 hall.getTable_3().setTableStatus(false);
+                break;
+        }
+    }
+
+    @Override
+    public boolean isTableFree(String command, Hall hall) {
+        switch (Integer.parseInt(command)) {
+            case 1:
+                if (hall.getTable_1().isTableStatus())
+                    return true;
+                else {
+                    System.out.println("This table was reserved");
+                    return false;
+                }
+            case 2:
+                if (hall.getTable_2().isTableStatus())
+                    return true;
+                else {
+                    System.out.println("This table was reserved");
+                    return false;
+                }
+            case 3:
+                if (hall.getTable_3().isTableStatus())
+                    return true;
+                else {
+                    System.out.println("This table was reserved");
+                    return false;
+                }
+            default:
+                System.out.println("Try again");
+                return false;
+
         }
     }
 }
