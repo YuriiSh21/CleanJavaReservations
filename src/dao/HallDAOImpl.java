@@ -1,9 +1,7 @@
 package dao;
 
-import db.HallDB;
 import entity.Hall;
 import entity.Reservation;
-import entity.Table;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -40,7 +40,24 @@ public class Main {
                 hallService.showHall(hallService.getCheckedHall());
             } else {
                 hallService.notification2();
+                Table freeTable1 = new Table(1, true, 4);
+                Table freeTable2 = new Table(2, true, 4);
+                Table freeTable3 = new Table(3, true, 4);
+                Hall hallWithAllFreeTables = new Hall(checkDate.getCheckDate(), freeTable1, freeTable2, freeTable3);
+                hallList.add(hallWithAllFreeTables);
+                hallService.showHall(hallWithAllFreeTables);
+                String choiceAnotherTable = hallService.readCommand("Select free table and \n" +
+                        "enter number of table for your reservation ");
+                while (!hallService.isTableFree(choiceAnotherTable, hallWithAllFreeTables)) {
+                    choiceAnotherTable = hallService.readCommand("Select free table and \n" +
+                            "enter number of table for your reservation ");
+                }
+                Reservation reservation = hallService.madeNewReservation(checkDate.getCheckDate(), choiceAnotherTable);
+                hallService.saveReservation(reservationList, reservation);
+                hallService.changeStatusOfTable(hallWithAllFreeTables, reservation);
+                hallService.showHall(hallWithAllFreeTables);
             }
-        } while (!hallService.checkDate().equals(datesOfReservations.date12122012));
+        }
+            while (!hallService.checkDate().equals(datesOfReservations.date12122012));
     }
 }
