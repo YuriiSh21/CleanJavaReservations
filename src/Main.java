@@ -21,12 +21,13 @@ public class Main {
         Hall hall = new Hall(datesOfReservations.date01032023, table1, table2, table3);
         hallList.add(hall);
         CheckDate checkDate = new CheckDate();
-        do {
-            checkDate.setCheckDate(hallService.checkDate());
+        checkDate.setCheckDate(hallService.checkDate());
+        while (!checkDate.getCheckDate().equals(datesOfReservations.date12122012))
+         {
             boolean hallExist = hallService
                     .checkStatusOfTablesInHall(checkDate.getCheckDate(), hallList);
             if (hallExist) {
-                hallService.showHall(hallService.getCheckedHall());
+                hallService.showHall(hall);
                 String choiceTable = hallService.readCommand("Select free table and \n" +
                         "enter number of table for your reservation ");
                 while (!hallService.isTableFree(choiceTable, hall)) {
@@ -35,9 +36,8 @@ public class Main {
                 }
                 Reservation reservation = hallService.madeNewReservation(checkDate.getCheckDate(), choiceTable);
                 hallService.saveReservation(reservationList, reservation);
-                // System.out.println(reservationList);
                 hallService.changeStatusOfTable(hall, reservation);
-                hallService.showHall(hallService.getCheckedHall());
+                hallService.showHall(hall);
             } else {
                 hallService.notification2();
                 Table freeTable1 = new Table(1, true, 4);
@@ -57,7 +57,7 @@ public class Main {
                 hallService.changeStatusOfTable(hallWithAllFreeTables, reservation);
                 hallService.showHall(hallWithAllFreeTables);
             }
+             checkDate.setCheckDate(hallService.checkDate());
         }
-            while (!hallService.checkDate().equals(datesOfReservations.date12122012));
     }
 }
