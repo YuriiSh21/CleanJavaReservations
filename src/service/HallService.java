@@ -1,6 +1,7 @@
 package service;
 
 import db.HallDB;
+import entity.CheckDate;
 import entity.Hall;
 import entity.Reservation;
 import entity.Table;
@@ -21,4 +22,5 @@ public interface HallService {
     public List<Reservation> saveReservation(List<Reservation> list, Reservation reservation);
     public void changeStatusOfTable(Hall hall, Reservation reservation);
     public boolean isTableFree(String command, Hall hall);
+   // public void comboReservation(List<Reservation> reservationList, Hall hall, CheckDate checkDate);
 }

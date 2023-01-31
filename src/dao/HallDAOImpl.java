@@ -1,5 +1,6 @@
 package dao;
 
+import entity.CheckDate;
 import entity.Hall;
 import entity.Reservation;
 
@@ -61,7 +62,7 @@ public class HallDAOImpl implements HallDAO {
     @Override
     public Date checkDate() throws ParseException {
         Scanner in = new Scanner(System.in);
-        System.out.print("Input a date: ");
+        System.out.print("Input the date (DD/MM/YYYY): ");
         String date = in.nextLine();
         SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
         Date dateForCheck = s.parse(date);
@@ -74,21 +75,70 @@ public class HallDAOImpl implements HallDAO {
         Scanner sc = new Scanner(System.in);
         Reservation reservation = new Reservation();
         reservation.setId(ID_GENERATOR.getAndIncrement());
-        System.out.println("Enter your name");
-        reservation.setName(sc.nextLine());
-        System.out.println("Enter your surname");
-        reservation.setSurname(sc.nextLine());
-        System.out.println("Enter your phone number");
-        reservation.setPhoneNumber(sc.nextInt());
-        System.out.println("Enter number of people");
-        reservation.setNumberOfPersons(sc.nextInt());
-        reservation.setRemark(sc.nextLine());     //////  WTF ???
-        System.out.println("Enter remark");
-        reservation.setRemark(sc.nextLine());
+        readName(reservation, sc);
+        readSurname(reservation, sc);
+        readPhoneNumber(reservation, sc);
+        readNumberOfPersons(reservation, sc);
+        readRemark(reservation, sc);
         System.out.println("Reservation was completed");
         reservation.setDate(date);
         reservation.setNumberOfTable(Integer.parseInt(command));   //Exception
         return reservation;
+    }
+
+    @Override
+    public void readName(Reservation reservation, Scanner sc) {
+        System.out.println("Enter your name");
+        String name = sc.nextLine();
+        if (name.matches("\\D{2,15}"))
+            reservation.setName(name);
+        else {
+            System.out.println("Enter correct name");
+            readName(reservation, sc);
+        }
+    }
+
+    @Override
+    public void readSurname(Reservation reservation, Scanner sc) {
+        System.out.println("Enter your surname");
+        String surname = sc.nextLine();
+        if (surname.matches("\\D{2,20}"))
+            reservation.setSurname(surname);
+        else {
+            System.out.println("Enter correct surname");
+            readSurname(reservation, sc);
+        }
+    }
+
+    @Override
+    public void readPhoneNumber(Reservation reservation, Scanner sc) {
+        System.out.println("Enter your phone number (xxxxxxxxx)");
+        String phoneNumber = sc.nextLine();
+        if (phoneNumber.matches("\\d{9}"))
+            reservation.setPhoneNumber(Integer.parseInt(phoneNumber));
+        else {
+            System.out.println("Enter correct phone number");
+            readPhoneNumber(reservation, sc);
+        }
+    }
+
+    @Override
+    public void readNumberOfPersons(Reservation reservation, Scanner sc) {
+        System.out.println("Enter number of persons (1-6)");
+        String numberOfPersons = sc.nextLine();
+        if (numberOfPersons.matches("[1-6]"))
+            reservation.setNumberOfPersons(Integer.parseInt(numberOfPersons));
+        else {
+            System.out.println("Enter correct number");
+            readNumberOfPersons(reservation, sc);
+        }
+    }
+
+    @Override
+    public void readRemark(Reservation reservation, Scanner sc) {
+        System.out.println("Enter remark");
+        String remark = sc.nextLine();
+        reservation.setRemark(remark);
     }
 
     @Override
@@ -142,4 +192,20 @@ public class HallDAOImpl implements HallDAO {
 
         }
     }
+
+
+/*@Override
+    public void comboReservation(List<Reservation> reservationList, Hall hall, CheckDate checkDate) {
+    hallService.showHall(hall);
+    String choiceTable = hallService.readCommand("Select free table and \n" +
+            "enter number of table for your reservation ");
+    while (!hallService.isTableFree(choiceTable, hall)) {
+        choiceTable = hallService.readCommand("Select free table and \n" +
+                "enter number of table for your reservation ");
+    }
+    Reservation reservation = hallService.madeNewReservation(checkDate.getCheckDate(), choiceTable);
+    hallService.saveReservation(reservationList, reservation);
+    hallService.changeStatusOfTable(hall, reservation);
+    hallService.showHall(hall);
+}*/
 }

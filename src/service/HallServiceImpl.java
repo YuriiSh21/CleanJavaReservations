@@ -3,6 +3,7 @@ package service;
 import dao.HallDAO;
 import dao.HallDAOImpl;
 import db.HallDB;
+import entity.CheckDate;
 import entity.Hall;
 import entity.Reservation;
 import entity.Table;
@@ -69,5 +70,10 @@ public class HallServiceImpl implements HallService {
     public boolean isTableFree(String command, Hall hall) {
         return hallDAO.isTableFree(command, hall);
     }
+
+   /* @Override
+    public void comboReservation(List<Reservation> reservationList, Hall hall, CheckDate checkDate) {
+        hallDAO.comboReservation(reservationList, hall, checkDate);
+    }*/
 
 }
