@@ -1,13 +1,15 @@
 package dao;
 
-import entity.CheckDate;
 import entity.Hall;
 import entity.Reservation;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -26,11 +28,9 @@ public class HallDAOImpl implements HallDAO {
         for (Hall hall : list) {
             if (date.equals(hall.getDate())) {
                 checkedHall = hall;
-                System.out.println(true); //for visible valid
                 return true;
             }
         }
-        System.out.println(false); //for visible valid
         return false;
     }
 
@@ -52,11 +52,8 @@ public class HallDAOImpl implements HallDAO {
     @Override
     public String readCommand(String s) {
         Scanner sc = new Scanner(System.in);
-        String command = "No command";
-        System.out.print(s);
-        command = sc.nextLine();
-        //sc.close();
-        return command;
+        displayMessage(s);
+        return sc.nextLine();
     }
 
     @Override
@@ -65,9 +62,15 @@ public class HallDAOImpl implements HallDAO {
         System.out.print("Input the date (DD/MM/YYYY): ");
         String date = in.nextLine();
         SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-        Date dateForCheck = s.parse(date);
-        //in.close();
-        return dateForCheck;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        formatter = formatter.withLocale(Locale.US);
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        if (localDate.isAfter(LocalDate.now()) || localDate.equals(LocalDate.now()))
+            return s.parse(date);
+        else {
+            System.out.println("Input correct date");
+            return checkDate();
+        }
     }
 
     @Override
@@ -139,6 +142,11 @@ public class HallDAOImpl implements HallDAO {
         System.out.println("Enter remark");
         String remark = sc.nextLine();
         reservation.setRemark(remark);
+    }
+
+    @Override
+    public void displayMessage(String s) {
+        System.out.println(s);
     }
 
     @Override

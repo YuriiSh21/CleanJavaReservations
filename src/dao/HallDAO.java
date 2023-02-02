@@ -28,4 +28,5 @@ public interface HallDAO {
     public void readPhoneNumber(Reservation reservation, Scanner scanner);
     public void readNumberOfPersons(Reservation reservation, Scanner scanner);
     public void readRemark(Reservation reservation, Scanner scanner);
+    void displayMessage(String s);
 }
