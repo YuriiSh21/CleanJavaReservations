@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class HallDB {
 
-    private int id;
+   /* private int id;
     private Date date;
     private boolean status1Table;
     private boolean status2Table;
@@ -66,5 +66,5 @@ public class HallDB {
 
     public void setStatus3Table(boolean status3Table) {
         this.status3Table = status3Table;
-    }
+    }*/
 }

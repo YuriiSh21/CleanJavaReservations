@@ -1,5 +1,6 @@
 package dao;
 
+import entity.CheckDate;
 import entity.Hall;
 import entity.Reservation;
 
@@ -14,10 +15,8 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class HallDAOImpl implements HallDAO {
-
     public static Hall checkedHall;
     private static final AtomicInteger ID_GENERATOR = new AtomicInteger(1);
-
     public Hall getCheckedHall() {
         return checkedHall;
     }
@@ -44,6 +43,13 @@ public class HallDAOImpl implements HallDAO {
         System.out.println("This date don't have reservations");
     }
 
+    @Override
+    public String notification3() {
+        return
+                "Select free table and \n" +
+                        "enter number of table for your reservation. \n" +
+                        "Press 0 for exit";
+    }
     @Override
     public void showHall(Hall hall) {
         System.out.println(hall);
@@ -199,6 +205,27 @@ public class HallDAOImpl implements HallDAO {
                 return false;
 
 
+        }
+    }
+    @Override
+    public void reservationProcess(List<Reservation> reservationList, Hall hall, CheckDate checkDate) {
+        showHall(hall);
+        String choiceTable = readCommand(notification3());
+        switch (choiceTable) {
+            case "0":
+                break;
+            default:
+                try {
+                    while (!isTableFree(choiceTable, hall)) {
+                        choiceTable = readCommand(notification3());
+                    }
+                    Reservation reservation = madeNewReservation(checkDate.getCheckDate(), choiceTable);
+                    saveReservation(reservationList, reservation);
+                    changeStatusOfTable(hall, reservation);
+                    showHall(hall);
+                } catch (NumberFormatException e) {
+                    break;
+                }
         }
     }
 }

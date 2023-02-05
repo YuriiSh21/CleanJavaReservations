@@ -16,6 +16,7 @@ public interface HallDAO {
     public Hall getCheckedHall();
     public void notification1();
     public void notification2();
+    public String notification3();
     public void showHall(Hall hall);
     public String readCommand(String s);
     public Date checkDate() throws ParseException;
@@ -29,4 +30,5 @@ public interface HallDAO {
     public void readNumberOfPersons(Reservation reservation, Scanner scanner);
     public void readRemark(Reservation reservation, Scanner scanner);
     void displayMessage(String s);
+    void reservationProcess(List<Reservation> reservationList, Hall hall, CheckDate checkDate);
 }

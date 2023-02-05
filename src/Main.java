@@ -1,4 +1,3 @@
-import db.HallDB;
 import entity.*;
 import service.HallService;
 import service.HallServiceImpl;
@@ -9,10 +8,6 @@ import java.util.List;
 
 public class Main {
     static HallService hallService = new HallServiceImpl();
-    static String message = "Select free table and \n" +
-            "enter number of table for your reservation. \n" +
-            "Press 0 for exit";
-
     public static void main(String[] args) throws ParseException {
         System.out.println("Hello world!");
         DatesOfReservations datesOfReservations = new DatesOfReservations();
@@ -35,32 +30,11 @@ public class Main {
                 Table freeTable3 = new Table(3, true, 4);
                 Hall hallWithAllFreeTables = new Hall(checkDate.getCheckDate(), freeTable1, freeTable2, freeTable3);
                 hallList.add(hallWithAllFreeTables);
-                reservationProcess(reservationList, hallWithAllFreeTables, checkDate);
+                hallService.reservationProcess(reservationList, hallWithAllFreeTables, checkDate);
             } else {
-                reservationProcess(reservationList, hallService.getCheckedHall(), checkDate);
+                hallService.reservationProcess(reservationList, hallService.getCheckedHall(), checkDate);
             }
             checkDate.setCheckDate(hallService.checkDate());
-        }
-    }
-
-    private static void reservationProcess(List<Reservation> reservationList, Hall hall, CheckDate checkDate) {
-        hallService.showHall(hall);
-        String choiceTable = hallService.readCommand(message);
-        switch (choiceTable) {
-            case "0":
-                break;
-            default:
-               try {
-                   while (!hallService.isTableFree(choiceTable, hall)) {
-                       choiceTable = hallService.readCommand(message);
-                   }
-                   Reservation reservation = hallService.madeNewReservation(checkDate.getCheckDate(), choiceTable);
-                   hallService.saveReservation(reservationList, reservation);
-                   hallService.changeStatusOfTable(hall, reservation);
-                   hallService.showHall(hall);
-               } catch (NumberFormatException e) {
-                   break;
-               }
         }
     }
 }

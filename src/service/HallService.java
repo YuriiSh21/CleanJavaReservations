@@ -15,6 +15,7 @@ public interface HallService {
     public Hall getCheckedHall();//
     public void notification1();
     public void notification2();
+    public String notification3();
     public void showHall(Hall hall);
     public String readCommand(String s);
     public Date checkDate() throws ParseException;
@@ -22,5 +23,6 @@ public interface HallService {
     public List<Reservation> saveReservation(List<Reservation> list, Reservation reservation);
     public void changeStatusOfTable(Hall hall, Reservation reservation);
     public boolean isTableFree(String command, Hall hall);
-   // public void comboReservation(List<Reservation> reservationList, Hall hall, CheckDate checkDate);
+      void reservationProcess(List<Reservation> reservationList, Hall hall, CheckDate checkDate);
+
 }

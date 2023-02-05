@@ -37,6 +37,10 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
+    public String notification3() {
+        return hallDAO.notification3();
+    }
+    @Override
     public void showHall(Hall hall) {
         hallDAO.showHall(hall);
     }
@@ -71,9 +75,9 @@ public class HallServiceImpl implements HallService {
         return hallDAO.isTableFree(command, hall);
     }
 
-   /* @Override
-    public void comboReservation(List<Reservation> reservationList, Hall hall, CheckDate checkDate) {
-        hallDAO.comboReservation(reservationList, hall, checkDate);
-    }*/
+    @Override
+    public  void reservationProcess(List<Reservation> reservationList, Hall hall, CheckDate checkDate) {
+        hallDAO.reservationProcess(reservationList, hall, checkDate);
+    }
 
 }
