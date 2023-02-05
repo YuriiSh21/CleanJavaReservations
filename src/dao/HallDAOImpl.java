@@ -34,11 +34,6 @@ public class HallDAOImpl implements HallDAO {
     }
 
     @Override
-    public void notification1() {
-        System.out.println("Select free table");
-    }
-
-    @Override
     public void notification2() {
         System.out.println("This date don't have reservations");
     }

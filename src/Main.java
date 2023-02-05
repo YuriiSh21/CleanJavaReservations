@@ -20,7 +20,7 @@ public class Main {
         hallList.add(hall);
         CheckDate checkDate = new CheckDate();
         checkDate.setCheckDate(hallService.checkDate());
-        while (!checkDate.getCheckDate().equals(datesOfReservations.date12122012)) {
+        while (!checkDate.getCheckDate().equals(datesOfReservations.date12122025)) {
             boolean hallExist = hallService
                     .checkStatusOfTablesInHall(checkDate.getCheckDate(), hallList);
             if (!hallExist) {
