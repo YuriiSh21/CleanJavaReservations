@@ -64,7 +64,7 @@ public class HallDAOImpl implements HallDAO {
         SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         formatter = formatter.withLocale(Locale.US);
-        LocalDate localDate = LocalDate.parse(date, formatter);
+            LocalDate localDate = LocalDate.parse(date, formatter);
         if (localDate.isAfter(LocalDate.now()) || localDate.equals(LocalDate.now()))
             return s.parse(date);
         else {
@@ -198,22 +198,7 @@ public class HallDAOImpl implements HallDAO {
                 System.out.println("Try again");
                 return false;
 
+
         }
     }
-
-
-/*@Override
-    public void comboReservation(List<Reservation> reservationList, Hall hall, CheckDate checkDate) {
-    hallService.showHall(hall);
-    String choiceTable = hallService.readCommand("Select free table and \n" +
-            "enter number of table for your reservation ");
-    while (!hallService.isTableFree(choiceTable, hall)) {
-        choiceTable = hallService.readCommand("Select free table and \n" +
-                "enter number of table for your reservation ");
-    }
-    Reservation reservation = hallService.madeNewReservation(checkDate.getCheckDate(), choiceTable);
-    hallService.saveReservation(reservationList, reservation);
-    hallService.changeStatusOfTable(hall, reservation);
-    hallService.showHall(hall);
-}*/
 }

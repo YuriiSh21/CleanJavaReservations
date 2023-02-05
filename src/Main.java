@@ -9,6 +9,9 @@ import java.util.List;
 
 public class Main {
     static HallService hallService = new HallServiceImpl();
+    static String message = "Select free table and \n" +
+            "enter number of table for your reservation. \n" +
+            "Press 0 for exit";
 
     public static void main(String[] args) throws ParseException {
         System.out.println("Hello world!");
@@ -22,42 +25,42 @@ public class Main {
         hallList.add(hall);
         CheckDate checkDate = new CheckDate();
         checkDate.setCheckDate(hallService.checkDate());
-        while (!checkDate.getCheckDate().equals(datesOfReservations.date12122012))
-         {
+        while (!checkDate.getCheckDate().equals(datesOfReservations.date12122012)) {
             boolean hallExist = hallService
                     .checkStatusOfTablesInHall(checkDate.getCheckDate(), hallList);
-            if (hallExist) {
-                hallService.showHall(hall);
-                String choiceTable = hallService.readCommand("Select free table and \n" +
-                        "enter number of table for your reservation ");
-                while (!hallService.isTableFree(choiceTable, hall)) {
-                    choiceTable = hallService.readCommand("Select free table and \n" +
-                            "enter number of table for your reservation ");
-                }
-                Reservation reservation = hallService.madeNewReservation(checkDate.getCheckDate(), choiceTable);
-                hallService.saveReservation(reservationList, reservation);
-                hallService.changeStatusOfTable(hall, reservation);
-                hallService.showHall(hall);
-            } else {
+            if (!hallExist) {
                 hallService.notification2();
                 Table freeTable1 = new Table(1, true, 4);
                 Table freeTable2 = new Table(2, true, 4);
                 Table freeTable3 = new Table(3, true, 4);
                 Hall hallWithAllFreeTables = new Hall(checkDate.getCheckDate(), freeTable1, freeTable2, freeTable3);
                 hallList.add(hallWithAllFreeTables);
-                hallService.showHall(hallWithAllFreeTables);
-                String choiceAnotherTable = hallService.readCommand("Select free table and \n" +
-                        "enter number of table for your reservation ");
-                while (!hallService.isTableFree(choiceAnotherTable, hallWithAllFreeTables)) {
-                    choiceAnotherTable = hallService.readCommand("Select free table and \n" +
-                            "enter number of table for your reservation ");
-                }
-                Reservation reservation = hallService.madeNewReservation(checkDate.getCheckDate(), choiceAnotherTable);
-                hallService.saveReservation(reservationList, reservation);
-                hallService.changeStatusOfTable(hallWithAllFreeTables, reservation);
-                hallService.showHall(hallWithAllFreeTables);
+                reservationProcess(reservationList, hallWithAllFreeTables, checkDate);
+            } else {
+                reservationProcess(reservationList, hallService.getCheckedHall(), checkDate);
             }
-             checkDate.setCheckDate(hallService.checkDate());
+            checkDate.setCheckDate(hallService.checkDate());
+        }
+    }
+
+    private static void reservationProcess(List<Reservation> reservationList, Hall hall, CheckDate checkDate) {
+        hallService.showHall(hall);
+        String choiceTable = hallService.readCommand(message);
+        switch (choiceTable) {
+            case "0":
+                break;
+            default:
+               try {
+                   while (!hallService.isTableFree(choiceTable, hall)) {
+                       choiceTable = hallService.readCommand(message);
+                   }
+                   Reservation reservation = hallService.madeNewReservation(checkDate.getCheckDate(), choiceTable);
+                   hallService.saveReservation(reservationList, reservation);
+                   hallService.changeStatusOfTable(hall, reservation);
+                   hallService.showHall(hall);
+               } catch (NumberFormatException e) {
+                   break;
+               }
         }
     }
 }
