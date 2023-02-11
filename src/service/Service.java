@@ -8,10 +8,10 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-public interface HallService {
+public interface Service {
     boolean checkStatusOfTablesInHall(Date date, List<Hall> list);
 
-    Hall getCheckedHall();//
+    Hall getCheckedHall();
 
     void notification2();
 
