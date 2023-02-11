@@ -1,22 +1,20 @@
-package dao;
+package aspect;
 
-import entity.CheckDate;
 import entity.Hall;
-import entity.Reservation;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ReservationDAOImpl implements ReservationDAO {
-    static HallDAOImpl hallDAOImpl = new HallDAOImpl();
-    static TableDAOImpl tableDAOImpl = new TableDAOImpl();
+public class ReservationImpl implements Reservation {
+    static HallImpl hallDAOImpl = new HallImpl();
+    static TableImpl tableDAOImpl = new TableImpl();
     private static final AtomicInteger ID_GENERATOR = new AtomicInteger(1);
     @Override
-    public Reservation madeNewReservation(Date date, String command) {
+    public entity.Reservation madeNewReservation(Date date, String command) {
         Scanner sc = new Scanner(System.in);
-        Reservation reservation = new Reservation();
+        entity.Reservation reservation = new entity.Reservation();
         reservation.setId(ID_GENERATOR.getAndIncrement());
         readName(reservation, sc);
         readSurname(reservation, sc);
@@ -29,7 +27,7 @@ public class ReservationDAOImpl implements ReservationDAO {
         return reservation;
     }
     @Override
-    public void readName(Reservation reservation, Scanner sc) {
+    public void readName(entity.Reservation reservation, Scanner sc) {
         System.out.println("Enter your name");
         String name = sc.nextLine();
         if (name.matches("\\D{2,15}"))
@@ -41,7 +39,7 @@ public class ReservationDAOImpl implements ReservationDAO {
     }
 
     @Override
-    public void readSurname(Reservation reservation, Scanner sc) {
+    public void readSurname(entity.Reservation reservation, Scanner sc) {
         System.out.println("Enter your surname");
         String surname = sc.nextLine();
         if (surname.matches("\\D{2,20}"))
@@ -53,7 +51,7 @@ public class ReservationDAOImpl implements ReservationDAO {
     }
 
     @Override
-    public void readPhoneNumber(Reservation reservation, Scanner sc) {
+    public void readPhoneNumber(entity.Reservation reservation, Scanner sc) {
         System.out.println("Enter your phone number (xxxxxxxxx)");
         String phoneNumber = sc.nextLine();
         if (phoneNumber.matches("\\d{9}"))
@@ -65,7 +63,7 @@ public class ReservationDAOImpl implements ReservationDAO {
     }
 
     @Override
-    public void readNumberOfPersons(Reservation reservation, Scanner sc) {
+    public void readNumberOfPersons(entity.Reservation reservation, Scanner sc) {
         System.out.println("Enter number of persons (1-6)");
         String numberOfPersons = sc.nextLine();
         if (numberOfPersons.matches("[1-6]"))
@@ -77,13 +75,13 @@ public class ReservationDAOImpl implements ReservationDAO {
     }
 
     @Override
-    public void readRemark(Reservation reservation, Scanner sc) {
+    public void readRemark(entity.Reservation reservation, Scanner sc) {
         System.out.println("Enter remark");
         String remark = sc.nextLine();
         reservation.setRemark(remark);
     }
     @Override
-    public void reservationProcess(List<Reservation> reservationList, Hall hall, CheckDate checkDate) {
+    public void reservationProcess(List<entity.Reservation> reservationList, Hall hall, Date date) {
         hallDAOImpl.showHall(hall);
         String choiceTable = hallDAOImpl.readCommand(hallDAOImpl.notification3());
         switch (choiceTable) {
@@ -94,7 +92,7 @@ public class ReservationDAOImpl implements ReservationDAO {
                     while (!tableDAOImpl.isTableFree(choiceTable, hall)) {
                         choiceTable = hallDAOImpl.readCommand(hallDAOImpl.notification3());
                     }
-                    Reservation reservation = madeNewReservation(checkDate.getCheckDate(), choiceTable);
+                    entity.Reservation reservation = madeNewReservation(date, choiceTable);
                     saveReservation(reservationList, reservation);
                     tableDAOImpl.changeStatusOfTable(hall, reservation);
                     hallDAOImpl.showHall(hall);
@@ -104,7 +102,7 @@ public class ReservationDAOImpl implements ReservationDAO {
         }
     }
     @Override
-    public void saveReservation(List<Reservation> list, Reservation reservation) {
+    public void saveReservation(List<entity.Reservation> list, entity.Reservation reservation) {
         list.add(reservation);
     }
 }

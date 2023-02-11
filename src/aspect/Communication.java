@@ -1,4 +1,4 @@
-package dao;
+package aspect;
 
 public interface Communication {
     void notification2();

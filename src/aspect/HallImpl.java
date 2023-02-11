@@ -1,6 +1,4 @@
-package dao;
-
-import entity.Hall;
+package aspect;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,9 +8,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class HallDAOImpl implements HallDAO, Communication {
-    public static Hall checkedHall;
-    public Hall getCheckedHall() {
+public class HallImpl implements Hall, Communication {
+    public static entity.Hall checkedHall;
+    public entity.Hall getCheckedHall() {
         return checkedHall;
     }
 
@@ -29,7 +27,7 @@ public class HallDAOImpl implements HallDAO, Communication {
                         "Press 0 for exit";
     }
     @Override
-    public void showHall(Hall hall) {
+    public void showHall(entity.Hall hall) {
         System.out.println(hall);
     }
 

@@ -12,17 +12,6 @@ public class Reservation {
     private Date date;
     private int numberOfTable;
 
-    public Reservation(int id, String name, String surname, int phoneNumber, int numberOfPersons, String remark, Date date, int numberOfTable) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.phoneNumber = phoneNumber;
-        this.numberOfPersons = numberOfPersons;
-        this.remark = remark;
-        this.date = date;
-        this.numberOfTable = numberOfTable;
-    }
-
     public Reservation() {
     }
 

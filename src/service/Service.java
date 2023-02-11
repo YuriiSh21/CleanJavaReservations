@@ -1,6 +1,5 @@
 package service;
 
-import entity.CheckDate;
 import entity.Hall;
 import entity.Reservation;
 
@@ -17,6 +16,6 @@ public interface Service {
 
     Date checkDate() throws ParseException;
 
-    void reservationProcess(List<Reservation> reservationList, Hall hall, CheckDate checkDate);
+    void reservationProcess(List<Reservation> reservationList, Hall hall, Date date);
 
 }

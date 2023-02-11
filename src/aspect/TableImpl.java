@@ -1,4 +1,4 @@
-package dao;
+package aspect;
 
 import entity.Hall;
 import entity.Reservation;
@@ -6,13 +6,13 @@ import entity.Reservation;
 import java.util.Date;
 import java.util.List;
 
-public class TableDAOImpl implements TableDAO {
+public class TableImpl implements Table {
 
     @Override
     public boolean checkStatusOfTablesInHall(Date date, List<Hall> list) {
         for (Hall hall : list) {
             if (date.equals(hall.getDate())) {
-                HallDAOImpl.checkedHall = hall;
+                HallImpl.checkedHall = hall;
                 return true;
             }
         }

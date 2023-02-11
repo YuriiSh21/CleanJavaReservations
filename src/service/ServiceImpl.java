@@ -1,9 +1,6 @@
 package service;
 
-import dao.*;
-import entity.CheckDate;
-import entity.Hall;
-import entity.Reservation;
+import aspect.*;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -11,19 +8,19 @@ import java.util.List;
 
 public class ServiceImpl implements Service {
 
-    private HallDAO hallDAO = new HallDAOImpl();
-    private TableDAO tableDAO = new TableDAOImpl();
-    private ReservationDAO reservationDAO = new ReservationDAOImpl();
-    private Communication communication = new HallDAOImpl();
+    private Hall hall = new HallImpl();
+    private Table table = new TableImpl();
+    private Reservation reservation = new ReservationImpl();
+    private Communication communication = new HallImpl();
 
     @Override
-    public boolean checkStatusOfTablesInHall(Date date, List<Hall> list) {
-        return tableDAO.checkStatusOfTablesInHall(date, list);
+    public boolean checkStatusOfTablesInHall(Date date, List<entity.Hall> list) {
+        return table.checkStatusOfTablesInHall(date, list);
     }
 
     @Override
-    public Hall getCheckedHall() {    //
-        return hallDAO.getCheckedHall();
+    public entity.Hall getCheckedHall() {    //
+        return hall.getCheckedHall();
     }
 
     @Override
@@ -33,12 +30,12 @@ public class ServiceImpl implements Service {
 
     @Override
     public Date checkDate() throws ParseException {
-        return hallDAO.checkDate();
+        return hall.checkDate();
     }
 
     @Override
-    public  void reservationProcess(List<Reservation> reservationList, Hall hall, CheckDate checkDate) {
-        reservationDAO.reservationProcess(reservationList, hall, checkDate);
+    public  void reservationProcess(List<entity.Reservation> reservationList, entity.Hall hall, Date date) {
+        reservation.reservationProcess(reservationList, hall, date);
     }
 
 }
