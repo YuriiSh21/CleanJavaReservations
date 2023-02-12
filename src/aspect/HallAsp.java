@@ -1,11 +1,14 @@
 package aspect;
 
+import entity.Hall;
+
 import java.text.ParseException;
 import java.util.Date;
 
-public interface Hall {
+public interface HallAsp {
     entity.Hall getCheckedHall();
-    void showHall(entity.Hall hall);
+    void showHall(Hall hall);
     Date checkDate() throws ParseException;
+    Hall makeFreeHall(Date checkDate);
 
 }

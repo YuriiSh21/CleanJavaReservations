@@ -1,6 +1,7 @@
 package service;
 
 import aspect.*;
+import entity.Hall;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -8,19 +9,19 @@ import java.util.List;
 
 public class ServiceImpl implements Service {
 
-    private Hall hall = new HallImpl();
-    private Table table = new TableImpl();
-    private Reservation reservation = new ReservationImpl();
-    private Communication communication = new HallImpl();
+    private HallAsp hallAsp = new HallAspImpl();
+    private TableAsp tableAsp = new TableAspImpl();
+    private ReservationAsp reservationAsp = new ReservationAspImpl();
+    private Communication communication = new HallAspImpl();
 
     @Override
     public boolean checkStatusOfTablesInHall(Date date, List<entity.Hall> list) {
-        return table.checkStatusOfTablesInHall(date, list);
+        return tableAsp.checkStatusOfTablesInHall(date, list);
     }
 
     @Override
     public entity.Hall getCheckedHall() {    //
-        return hall.getCheckedHall();
+        return hallAsp.getCheckedHall();
     }
 
     @Override
@@ -30,12 +31,17 @@ public class ServiceImpl implements Service {
 
     @Override
     public Date checkDate() throws ParseException {
-        return hall.checkDate();
+        return hallAsp.checkDate();
     }
 
     @Override
     public  void reservationProcess(List<entity.Reservation> reservationList, entity.Hall hall, Date date) {
-        reservation.reservationProcess(reservationList, hall, date);
+        reservationAsp.reservationProcess(reservationList, hall, date);
+    }
+
+    @Override
+    public Hall makeFreeHall(Date checkDate) {
+        return hallAsp.makeFreeHall(checkDate);
     }
 
 }

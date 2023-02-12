@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public interface Reservation {
+public interface ReservationAsp {
     entity.Reservation madeNewReservation(Date date, String command);
 
     void readName(entity.Reservation reservation, Scanner scanner);

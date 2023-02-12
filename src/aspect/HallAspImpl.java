@@ -1,5 +1,8 @@
 package aspect;
 
+import entity.Hall;
+import entity.Table;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -8,9 +11,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class HallImpl implements Hall, Communication {
-    public static entity.Hall checkedHall;
-    public entity.Hall getCheckedHall() {
+public class HallAspImpl implements HallAsp, Communication {
+    public static Hall checkedHall;
+    public Hall getCheckedHall() {
         return checkedHall;
     }
 
@@ -22,9 +25,10 @@ public class HallImpl implements Hall, Communication {
     @Override
     public String notification3() {
         return
-                "Select free table and \n" +
-                        "enter number of table for your reservation. \n" +
-                        "Press 0 for exit";
+                "Select free table and enter number of table for your reservation. \n" +
+                        "Press 0 for exit \n" +
+                "Press 9 for Log in";
+
     }
     @Override
     public void showHall(entity.Hall hall) {
@@ -58,5 +62,13 @@ public class HallImpl implements Hall, Communication {
     @Override
     public void displayMessage(String s) {
         System.out.println(s);
+    }
+
+    @Override
+    public Hall makeFreeHall(Date checkDate) {
+        Table freeTable1 = new Table(1, true, 4);
+        Table freeTable2 = new Table(2, true, 4);
+        Table freeTable3 = new Table(3, true, 4);
+        return new Hall(checkDate, freeTable1, freeTable2, freeTable3);
     }
 }

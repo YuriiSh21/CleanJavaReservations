@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ReservationImpl implements Reservation {
-    static HallImpl hallDAOImpl = new HallImpl();
-    static TableImpl tableDAOImpl = new TableImpl();
+public class ReservationAspImpl implements ReservationAsp {
+    static HallAspImpl hallAspImpl = new HallAspImpl();
+    static TableAspImpl tableAspImpl = new TableAspImpl();
+    static LoggingAspImpl loggingAspImpl = new LoggingAspImpl();
+    static Admin admin = new Admin();
     private static final AtomicInteger ID_GENERATOR = new AtomicInteger(1);
     @Override
     public entity.Reservation madeNewReservation(Date date, String command) {
@@ -82,20 +84,24 @@ public class ReservationImpl implements Reservation {
     }
     @Override
     public void reservationProcess(List<entity.Reservation> reservationList, Hall hall, Date date) {
-        hallDAOImpl.showHall(hall);
-        String choiceTable = hallDAOImpl.readCommand(hallDAOImpl.notification3());
+        hallAspImpl.showHall(hall);
+        String choiceTable = hallAspImpl.readCommand(hallAspImpl.notification3());
         switch (choiceTable) {
             case "0":
                 break;
+            case "9":
+                if (loggingAspImpl.logging())
+                    admin.openAdminMenu(reservationList);
+                break;
             default:
                 try {
-                    while (!tableDAOImpl.isTableFree(choiceTable, hall)) {
-                        choiceTable = hallDAOImpl.readCommand(hallDAOImpl.notification3());
+                    while (!tableAspImpl.isTableFree(choiceTable, hall)) {
+                        choiceTable = hallAspImpl.readCommand(hallAspImpl.notification3());
                     }
                     entity.Reservation reservation = madeNewReservation(date, choiceTable);
                     saveReservation(reservationList, reservation);
-                    tableDAOImpl.changeStatusOfTable(hall, reservation);
-                    hallDAOImpl.showHall(hall);
+                    tableAspImpl.changeStatusOfTable(hall, reservation);
+                    hallAspImpl.showHall(hall);
                 } catch (NumberFormatException e) {
                     break;
                 }

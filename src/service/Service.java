@@ -18,4 +18,5 @@ public interface Service {
 
     void reservationProcess(List<Reservation> reservationList, Hall hall, Date date);
 
+    Hall makeFreeHall(Date checkDate);
 }

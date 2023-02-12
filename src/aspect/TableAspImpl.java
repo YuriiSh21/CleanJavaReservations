@@ -6,13 +6,13 @@ import entity.Reservation;
 import java.util.Date;
 import java.util.List;
 
-public class TableImpl implements Table {
+public class TableAspImpl implements TableAsp {
 
     @Override
     public boolean checkStatusOfTablesInHall(Date date, List<Hall> list) {
         for (Hall hall : list) {
             if (date.equals(hall.getDate())) {
-                HallImpl.checkedHall = hall;
+                HallAspImpl.checkedHall = hall;
                 return true;
             }
         }
