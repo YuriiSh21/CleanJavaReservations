@@ -11,7 +11,7 @@ public class ReservationAspImpl implements ReservationAsp {
     static HallAspImpl hallAspImpl = new HallAspImpl();
     static TableAspImpl tableAspImpl = new TableAspImpl();
     static LoggingAspImpl loggingAspImpl = new LoggingAspImpl();
-    static Admin admin = new Admin();
+    static AdminImpl adminImpl = new AdminImpl();
     private static final AtomicInteger ID_GENERATOR = new AtomicInteger(1);
     @Override
     public entity.Reservation madeNewReservation(Date date, String command) {
@@ -91,7 +91,7 @@ public class ReservationAspImpl implements ReservationAsp {
                 break;
             case "9":
                 if (loggingAspImpl.logging())
-                    admin.openAdminMenu(reservationList);
+                    adminImpl.openAdminMenu(reservationList);
                 break;
             default:
                 try {

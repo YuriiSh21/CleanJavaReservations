@@ -2,6 +2,7 @@ package service;
 
 import aspect.*;
 import entity.Hall;
+import entity.Reservation;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -13,6 +14,7 @@ public class ServiceImpl implements Service {
     private TableAsp tableAsp = new TableAspImpl();
     private ReservationAsp reservationAsp = new ReservationAspImpl();
     private Communication communication = new HallAspImpl();
+    private Admin admin = new AdminImpl();
 
     @Override
     public boolean checkStatusOfTablesInHall(Date date, List<entity.Hall> list) {
