@@ -2,6 +2,7 @@ package aspect;
 
 import entity.Reservation;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -23,6 +24,10 @@ public class AdminImpl implements Communication, Admin {
                 openAdminMenu(list);
                 break;
             case "4":
+                System.out.println(editReservation(list));
+                openAdminMenu(list);
+                break;
+            case "5":
                 break;
             default:
                 System.out.println("Enter correct command");
@@ -41,7 +46,8 @@ public class AdminImpl implements Communication, Admin {
         return "Enter 1 for RESERVATION SEARCH \n" +
                 "Enter 2 for SHOW ALL RESERVATIONS \n" +
                 "Enter 3 for CANCEL RESERVATION \n" +
-                "Enter 4 for EXIT";
+                "Enter 4 for EDIT RESERVATION \n" +
+                "Enter 5 for EXIT";
     }
 
     @Override
@@ -76,7 +82,7 @@ public class AdminImpl implements Communication, Admin {
 
     @Override
     public List<Reservation> deleteReservationById(List<Reservation> list) {
-        int id = 0;
+        int id;
         try {
             id = Integer.parseInt(readCommand("Enter ID for DELETE RESERVATION: "));
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -85,6 +91,24 @@ public class AdminImpl implements Communication, Admin {
         }
         int finalId = id;
         list = list.stream().filter(e -> e.getId() != finalId).collect(Collectors.toList());
+        return list;
+    }
+
+    @Override
+    public List<Reservation> editReservation(List<Reservation> list) {
+        Reservation reservationForEditing = findReservationById(list);
+        Scanner sc = new Scanner(System.in);
+        ReservationAspImpl reservationAsp = new ReservationAspImpl();
+        reservationAsp.readName(reservationForEditing, sc);
+        reservationAsp.readSurname(reservationForEditing, sc);
+        reservationAsp.readPhoneNumber(reservationForEditing, sc);
+        reservationAsp.readNumberOfPersons(reservationForEditing, sc);
+        reservationAsp.readRemark(reservationForEditing, sc);
+        int finalId = reservationForEditing.getId();
+        list = list.stream().filter(e -> e.getId() != finalId)
+                .collect(Collectors.toList());
+        list.add(reservationForEditing);
+        System.out.println("Reservation has been changed");
         return list;
     }
 }
