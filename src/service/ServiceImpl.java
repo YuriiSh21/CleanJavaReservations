@@ -17,7 +17,7 @@ public class ServiceImpl implements Service {
     private Admin admin = new AdminImpl();
 
     @Override
-    public boolean checkStatusOfTablesInHall(Date date, List<entity.Hall> list) {
+    public boolean checkStatusOfTablesInHall(Date date, List<Hall> list) {
         return tableAsp.checkStatusOfTablesInHall(date, list);
     }
 
@@ -32,12 +32,12 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public Date checkDate() throws ParseException {
-        return hallAsp.checkDate();
+    public Date inputAndCheckingDate() throws ParseException {
+        return hallAsp.inputAndCheckingDate();
     }
 
     @Override
-    public  void reservationProcess(List<entity.Reservation> reservationList, entity.Hall hall, Date date) {
+    public void reservationProcess(List<Reservation> reservationList, Hall hall, Date date) {
         reservationAsp.reservationProcess(reservationList, hall, date);
     }
 

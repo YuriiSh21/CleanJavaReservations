@@ -33,6 +33,7 @@ public class TableAspImpl implements TableAsp {
                 break;
         }
     }
+
     @Override
     public boolean isTableFree(String command, Hall hall) {
         switch (Integer.parseInt(command)) {

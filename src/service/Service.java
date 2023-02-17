@@ -14,7 +14,7 @@ public interface Service {
 
     void notification2();
 
-    Date checkDate() throws ParseException;
+    Date inputAndCheckingDate() throws ParseException;
 
     void reservationProcess(List<Reservation> reservationList, Hall hall, Date date);
 

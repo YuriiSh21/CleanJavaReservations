@@ -1,23 +1,26 @@
 package aspect;
 
 import entity.Hall;
+import entity.Reservation;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public interface ReservationAsp {
-    entity.Reservation madeNewReservation(Date date, String command);
+    Reservation madeNewReservation(Date date, String command);
 
-    void readName(entity.Reservation reservation, Scanner scanner);
+    void readName(Reservation reservation, Scanner scanner);
 
-    void readSurname(entity.Reservation reservation, Scanner scanner);
+    void readSurname(Reservation reservation, Scanner scanner);
 
-    void readPhoneNumber(entity.Reservation reservation, Scanner scanner);
+    void readPhoneNumber(Reservation reservation, Scanner scanner);
 
-    void readNumberOfPersons(entity.Reservation reservation, Scanner scanner);
+    void readNumberOfPersons(Reservation reservation, Scanner scanner);
 
-    void readRemark(entity.Reservation reservation, Scanner scanner);
-    void reservationProcess(List<entity.Reservation> reservationList, Hall hall, Date date);
-    void saveReservation(List<entity.Reservation> list, entity.Reservation reservation);
+    void readRemark(Reservation reservation, Scanner scanner);
+
+    void reservationProcess(List<Reservation> reservationList, Hall hall, Date date);
+
+    void saveReservation(List<Reservation> list, Reservation reservation);
 }

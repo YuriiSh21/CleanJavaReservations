@@ -15,20 +15,20 @@ public class Main {
         DatesOfReservations datesOfReservations = new DatesOfReservations();
         List<Hall> hallList = new ArrayList<>();
         List<Reservation> reservationList = new ArrayList<>();
-        Date checkDate;
-        checkDate = service.checkDate();
-        while (!checkDate.equals(datesOfReservations.date12122025)) {
+        Date correctDate;
+        correctDate = service.inputAndCheckingDate();
+        while (!correctDate.equals(datesOfReservations.date12122025)) {
             boolean hallExist = service
-                    .checkStatusOfTablesInHall(checkDate, hallList);
+                    .checkStatusOfTablesInHall(correctDate, hallList);
             if (!hallExist) {
                 service.notification2();
-                Hall hallWithAllFreeTables = service.makeFreeHall(checkDate);
+                Hall hallWithAllFreeTables = service.makeFreeHall(correctDate);
                 hallList.add(hallWithAllFreeTables);
-                service.reservationProcess(reservationList, hallWithAllFreeTables, checkDate);
+                service.reservationProcess(reservationList, hallWithAllFreeTables, correctDate);
             } else {
-                service.reservationProcess(reservationList, service.getCheckedHall(), checkDate);
+                service.reservationProcess(reservationList, service.getCheckedHall(), correctDate);
             }
-            checkDate = service.checkDate();
+            correctDate = service.inputAndCheckingDate();
         }
     }
 }

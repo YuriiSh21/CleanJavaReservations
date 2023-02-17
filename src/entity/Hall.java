@@ -1,6 +1,5 @@
 package entity;
 
-
 import java.util.Date;
 
 public class Hall {
@@ -14,9 +13,6 @@ public class Hall {
         this.table_1 = table_1;
         this.table_2 = table_2;
         this.table_3 = table_3;
-    }
-
-    public Hall() {
     }
 
     public Date getDate() {
@@ -59,6 +55,4 @@ public class Hall {
                 ", \n Table #2 is free = " + table_2.isTableStatus() +
                 ", \n Table #3 is free = " + table_3.isTableStatus();
     }
-
 }
-

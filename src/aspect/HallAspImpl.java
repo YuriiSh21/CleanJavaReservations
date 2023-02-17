@@ -13,25 +13,26 @@ import java.util.Scanner;
 
 public class HallAspImpl implements HallAsp, Communication {
     public static Hall checkedHall;
+
     public Hall getCheckedHall() {
         return checkedHall;
     }
 
     @Override
-    public void notification2() {
-        System.out.println("This date don't have reservations");
-    }
-
-    @Override
-    public String notification3() {
+    public String notification1() {
         return
                 "Select free table and enter number of table for your reservation. \n" +
                         "Press 0 for exit \n" +
-                "Press 9 for Log in";
-
+                        "Press 9 for Log in";
     }
+
     @Override
-    public void showHall(entity.Hall hall) {
+    public String notification2() {
+        return "This date don't have reservations";
+    }
+
+    @Override
+    public void showHall(Hall hall) {
         System.out.println(hall);
     }
 
@@ -43,19 +44,19 @@ public class HallAspImpl implements HallAsp, Communication {
     }
 
     @Override
-    public Date checkDate() throws ParseException {
+    public Date inputAndCheckingDate() throws ParseException {
         Scanner in = new Scanner(System.in);
         System.out.print("Input the date (DD/MM/YYYY): ");
         String date = in.nextLine();
         SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         formatter = formatter.withLocale(Locale.US);
-            LocalDate localDate = LocalDate.parse(date, formatter);
+        LocalDate localDate = LocalDate.parse(date, formatter);
         if (localDate.isAfter(LocalDate.now()) || localDate.equals(LocalDate.now()))
             return s.parse(date);
         else {
             System.out.println("Input correct date");
-            return checkDate();
+            return inputAndCheckingDate();
         }
     }
 

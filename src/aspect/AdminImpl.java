@@ -2,7 +2,6 @@ package aspect;
 
 import entity.Reservation;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -10,7 +9,7 @@ import java.util.stream.Collectors;
 public class AdminImpl implements Communication, Admin {
 
     public void openAdminMenu(List<Reservation> list) {
-        switch (readCommand(notification3())) {
+        switch (readCommand(notification1())) {
             case "1":
                 System.out.println(findReservationById(list));
                 openAdminMenu(list);
@@ -30,24 +29,24 @@ public class AdminImpl implements Communication, Admin {
             case "5":
                 break;
             default:
-                System.out.println("Enter correct command");
+                System.out.println(notification2());
                 openAdminMenu(list);
                 break;
         }
     }
 
     @Override
-    public void notification2() {
-
-    }
-
-    @Override
-    public String notification3() {
+    public String notification1() {
         return "Enter 1 for RESERVATION SEARCH \n" +
                 "Enter 2 for SHOW ALL RESERVATIONS \n" +
                 "Enter 3 for CANCEL RESERVATION \n" +
                 "Enter 4 for EDIT RESERVATION \n" +
                 "Enter 5 for EXIT";
+    }
+
+    @Override
+    public String notification2() {
+        return "Enter correct command";
     }
 
     @Override
@@ -90,7 +89,7 @@ public class AdminImpl implements Communication, Admin {
             id = Integer.parseInt(readCommand("Enter ID for DELETE RESERVATION: "));
         }
         int finalId = id;
-        list = list.stream().filter(e -> e.getId() != finalId).collect(Collectors.toList());
+        list.removeIf(e -> e.getId() == finalId);
         return list;
     }
 
