@@ -68,14 +68,15 @@ public class AdminImpl implements Communication, Admin {
             id = Integer.parseInt(readCommand("Enter ID: "));
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println("No such ID, try again");
-            id = Integer.parseInt(readCommand("Enter ID: "));
+            findReservationById(list);
         }
         int finalId = id;
         list = list.stream().filter(e -> e.getId() == finalId).collect(Collectors.toList());
         try {
             return list.get(0);
         } catch (IndexOutOfBoundsException e) {
-            return new Reservation();
+            System.out.println("Reservation with ID " + id + " not exist");
+            return null;
         }
     }
 
@@ -96,18 +97,31 @@ public class AdminImpl implements Communication, Admin {
     @Override
     public List<Reservation> editReservation(List<Reservation> list) {
         Reservation reservationForEditing = findReservationById(list);
-        Scanner sc = new Scanner(System.in);
-        ReservationAspImpl reservationAsp = new ReservationAspImpl();
-        reservationAsp.readName(reservationForEditing, sc);
-        reservationAsp.readSurname(reservationForEditing, sc);
-        reservationAsp.readPhoneNumber(reservationForEditing, sc);
-        reservationAsp.readNumberOfPersons(reservationForEditing, sc);
-        reservationAsp.readRemark(reservationForEditing, sc);
-        int finalId = reservationForEditing.getId();
-        list = list.stream().filter(e -> e.getId() != finalId)
-                .collect(Collectors.toList());
-        list.add(reservationForEditing);
-        System.out.println("Reservation has been changed");
-        return list;
+        try {
+            if (reservationForEditing.getId() > 0) {
+                Scanner sc = new Scanner(System.in);
+                ReservationAspImpl reservationAsp = new ReservationAspImpl();
+                System.out.println("Name is: " + reservationForEditing.getName());
+                reservationAsp.readName(reservationForEditing, sc);
+                System.out.println("Surname is: " + reservationForEditing.getSurname());
+                reservationAsp.readSurname(reservationForEditing, sc);
+                System.out.println("Phone number is: " + reservationForEditing.getPhoneNumber());
+                reservationAsp.readPhoneNumber(reservationForEditing, sc);
+                System.out.println("Table was reserved for "
+                        + reservationForEditing.getNumberOfPersons() + " person");
+                reservationAsp.readNumberOfPersons(reservationForEditing, sc);
+                System.out.println("Remark: " + reservationForEditing.getRemark());
+                reservationAsp.readRemark(reservationForEditing, sc);
+                int finalId = reservationForEditing.getId();
+                list = list.stream().filter(e -> e.getId() != finalId)
+                        .collect(Collectors.toList());
+                list.add(reservationForEditing);
+                System.out.println("Reservation has been changed");
+                return list;
+            } else
+                return null;
+        } catch (NullPointerException npe) {
+            return null;
+        }
     }
 }

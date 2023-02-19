@@ -21,7 +21,7 @@ public class Main {
             boolean hallExist = service
                     .checkStatusOfTablesInHall(correctDate, hallList);
             if (!hallExist) {
-                service.notification2();
+                System.out.println(service.notification2());
                 Hall hallWithAllFreeTables = service.makeFreeHall(correctDate);
                 hallList.add(hallWithAllFreeTables);
                 service.reservationProcess(reservationList, hallWithAllFreeTables, correctDate);

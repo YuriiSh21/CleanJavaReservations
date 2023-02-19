@@ -12,7 +12,7 @@ public interface Service {
 
     Hall getCheckedHall();
 
-    void notification2();
+    String notification2();
 
     Date inputAndCheckingDate() throws ParseException;
 
