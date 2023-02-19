@@ -1,7 +1,7 @@
 package aspect;
 
 public class LoggingAspImpl extends HallAspImpl implements Logging {
-    private static HallAspImpl hallAspImpl = new HallAspImpl();
+    private static final HallAspImpl hallAspImpl = new HallAspImpl();
 
     @Override
     public String notification1() {

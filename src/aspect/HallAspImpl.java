@@ -67,9 +67,9 @@ public class HallAspImpl implements HallAsp, Communication {
 
     @Override
     public Hall makeFreeHall(Date checkDate) {
-        Table freeTable1 = new Table(1, true, 6);
-        Table freeTable2 = new Table(2, true, 6);
-        Table freeTable3 = new Table(3, true, 6);
+        Table freeTable1 = new Table(true);
+        Table freeTable2 = new Table(true);
+        Table freeTable3 = new Table(true);
         return new Hall(checkDate, freeTable1, freeTable2, freeTable3);
     }
 }

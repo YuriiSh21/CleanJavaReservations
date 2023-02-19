@@ -15,10 +15,6 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(String name) {
-        this.name = name;
-    }
-
     public int getId() {
         return id;
     }
@@ -85,7 +81,7 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Reservation{" +
+        return "Reservation:" +
                 " \n id = " + id +
                 ", \n Name = '" + name + '\'' +
                 ", \n Surname = '" + surname + '\'' +
@@ -93,7 +89,6 @@ public class Reservation {
                 ", \n Number of Persons = " + numberOfPersons +
                 ", \n Remark = '" + remark + '\'' +
                 ", \n Date = " + date +
-                ",\n Number of table = " + numberOfTable +
-                '}';
+                ",\n Number of table = " + numberOfTable;
     }
 }

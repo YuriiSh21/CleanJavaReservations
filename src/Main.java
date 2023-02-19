@@ -1,4 +1,4 @@
-import dates.DatesOfReservations;
+import dates.Dates;
 import entity.*;
 import service.Service;
 import service.ServiceImpl;
@@ -12,12 +12,12 @@ public class Main {
     static Service service = new ServiceImpl();
 
     public static void main(String[] args) throws ParseException {
-        DatesOfReservations datesOfReservations = new DatesOfReservations();
+        Dates dates = new Dates();
         List<Hall> hallList = new ArrayList<>();
         List<Reservation> reservationList = new ArrayList<>();
         Date correctDate;
         correctDate = service.inputAndCheckingDate();
-        while (!correctDate.equals(datesOfReservations.date12122025)) {
+        while (!correctDate.equals(dates.dateOfExit)) {
             boolean hallExist = service
                     .checkStatusOfTablesInHall(correctDate, hallList);
             if (!hallExist) {
